@@ -1,0 +1,44 @@
+<ul class="nav navbar-nav">
+  
+<ng-container *ngIf="Courriers$ | async as result" [ngSwitch]="result.dataState">
+
+  <ng-container *ngSwitchCase="DataStateEnum.LOADING">
+    Loaaaading ...
+  </ng-container>
+  <ng-container *ngSwitchCase="DataStateEnum.LOADED">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#id</th>
+          <th scope="col">title</th>
+          <th scope="col">content</th>
+          <th scope="col">action</th>
+        </tr>
+      </thead>
+      <tbody>
+       <tr *ngFor="let courrier of result.data" [class.selected] = "courrier==Courrier" (click)="onSelect(courrier)">
+          <th >{{courrier.id}}</th>
+          <td>{{courrier.title}}</td>
+          <td>{{courrier.content}}</td>
+          <td><button class="delete" (click)="onDelete(courrier)">Delete</button><button (click)="onEdit(courrier)">edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-container *ngSwitchCase="DataStateEnum.ERROR">
+    ERROR 
+  </ng-container>
+  
+
+     
+</ng-container>  
+
+
+<div *ngIf="isSelected">
+  {{this.Courrier.title}}
+  {{this.Courrier.content}}
+  {{this.Courrier.created_at}}
+</div>
+      
+         
+        
