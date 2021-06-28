@@ -164,7 +164,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         Elibyy\TCPDF\ServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-
+        Spatie\Permission\PermissionServiceProvider::class,
         
         /*
          * Package Service Providers...

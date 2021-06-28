@@ -12,23 +12,24 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { CourrierComponent } from './components/courrier/courrier.component';
-import { CourrierlistComponent } from './components/courrierlist/courrierlist.component';
+import { CourrierComponent } from './components/CourriersComponents/courrier/courrier.component';
+import { CourrierlistComponent } from './components/CourriersComponents/courrierlist/courrierlist.component';
 import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms'
 import {MatCardModule} from '@angular/material/card';
-import { NewcourrierComponent } from './components/newcourrier/newcourrier.component';
-import {CourrierService} from './services/courrier.service';
+import { NewcourrierComponent } from './components/CourriersComponents/newcourrier/newcourrier.component';
+import {CourrierService} from './services/CourrierService/courrier.service';
 import { HttpClientModule } from '@angular/common/http';
-import { EditcourrierComponent } from './components/editcourrier/editcourrier.component';
-import { ViewPDFComponentComponent } from './components/view-pdfcomponent/view-pdfcomponent.component';
+import { EditcourrierComponent } from './components/CourriersComponents/editcourrier/editcourrier.component';
+import { ViewPDFComponentComponent } from './components/CourriersComponents/view-pdfcomponent/view-pdfcomponent.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { SigninComponent } from './components/signin/signin.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { SigninComponent } from './components/UsersComponents/signin/signin.component';
+import { SignupComponent } from './components/UsersComponents/signup/signup.component';
+import { UserProfileComponent } from './components/UsersComponents/user-profile/user-profile.component';
 import {HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/shared/auth.interceptor';
 import {AuthGuard} from './guard/auth.guard';
+import { NewEntityComponent } from './components/EntityComponents/new-entity/new-entity.component';
 
 
 
@@ -46,6 +47,7 @@ import {AuthGuard} from './guard/auth.guard';
     SigninComponent,
     SignupComponent,
     UserProfileComponent,
+    NewEntityComponent,
     
     
     

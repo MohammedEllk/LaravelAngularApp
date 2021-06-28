@@ -1,13 +1,82 @@
-.sidenav-container {
+#sidebar {
+  z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 150px;
   height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
+  background: #666699;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 
-.sidenav {
-  width: 200px;
+@media screen and (max-width: 1023px) {
+  #sidebar {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 80%;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #666699;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+}
+
+#sidebar header {
+  background-color: #8585ad;
+  font-size: 20px;
+  line-height: 52px;
+  text-align: center;
+}
+
+#sidebar header a {
+  color: #fff;
+  display: block;
+  text-decoration: none;
+}
+
+#sidebar header a:hover {
+  color: #fff;
+  width: 100%;
+}
+#sidebar .nav li{
+  width: 100%;
+}
+#sidebar .nav a{
+  background: none;
+  color: #CFD8DC;
+  font-size: 14px;
+}
+
+#sidebar .nav a:hover{
+  background: #8585ad;
+  color: #ECEFF1;
+}
+
+#sidebar .nav a i{
+  margin-right: 16px;
+  width: 100%;
+}
+
+#sidebar header img{
+  margin-left: 20px;
+  width: 30px;
+}
+/*---------------------------*/
+mat-toolbar{
+  background-color: #666699;
 }
 
 .sidenav .mat-toolbar {
-  background: inherit;
+  background: #8585ad;
 }
 
 .mat-toolbar.mat-primary {

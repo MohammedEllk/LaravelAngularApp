@@ -18,9 +18,11 @@ class CreateCourriersTable extends Migration
             $table->string('title',250);
             $table->text('content');
             $table->string('priority',250);
+            $table->engine = 'MyISAM';
             $table->string('file',250);
             $table->timestamps();
         });
+        
         
     }
 

@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable,BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+
 
 // User interface
 export class User {
+  id? : number;
   name?: String;
   email?: String;
   password?: String;
-  password_confirmation?: String
+  password_confirmation?: String;
+  entity_id?:number;
 }
 
 @Injectable({
@@ -15,8 +18,11 @@ export class User {
 })
 
 export class AuthService {
+  loggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    
+   }
 
   // User registration
   register(user: User): Observable<any> {

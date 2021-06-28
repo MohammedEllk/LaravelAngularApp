@@ -1,0 +1,55 @@
+<div class="auth-wrapper">
+    <form class="form-signin" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <p>{{registerForm.value|json}}</p>
+        <h3 class="h3 mb-3 font-weight-normal text-center">Register User</h3>
+  
+        <!-- Errors -->
+        <div *ngIf="errors?.name" class="alert alert-danger mt-3">
+          {{ errors?.name }}
+        </div>
+        <div *ngIf="errors?.email" class="alert alert-danger mt-3">
+          {{ errors?.email }}
+        </div>
+        <div *ngIf="errors?.password" class="alert alert-danger mt-3">
+            {{ errors?.password }}
+        </div>
+        <div *ngIf="errors?.password_confirmation" class="alert alert-danger mt-3">
+            {{ errors?.password_confirmation }}
+        </div>
+  
+        <!-- Signup form -->
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" formControlName="name">
+        </div>
+        <div class="form-group">
+            <label>Email address</label>
+            <input type="email" class="form-control" formControlName="email">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" formControlName="password">
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" class="form-control" formControlName="password_confirmation">
+        </div>
+        <div class="form-group">
+        <ng-container *ngIf="entities | async as result" [ngSwitch]="result.dataState">
+        <ng-container *ngSwitchCase="DataStateEnum.LOADING">
+            Loaaaading ...
+        </ng-container>
+        <ng-container *ngSwitchCase="DataStateEnum.LOADED">
+        <select formControlName="entity_id">
+          <option [ngValue]="null" disabled>Choose your profile</option>
+          <option *ngFor="let ent of result.data" [ngValue]="ent.id" >{{ent.title}}</option>
+        </select>
+        </ng-container>
+        <ng-container *ngSwitchCase="DataStateEnum.ERROR">
+        ERROR 
+        </ng-container>
+        </ng-container>  
+        </div>
+        <button type="submit" class="btn btn-block btn-primary">Register User</button>
+    </form>
+  </div>

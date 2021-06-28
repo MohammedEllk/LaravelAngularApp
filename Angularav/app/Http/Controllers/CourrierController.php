@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\Courrier;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use \PDF;
 use setasign\Fpdi\Fpdi;
 
@@ -24,14 +26,15 @@ class CourrierController extends Controller
     public function store(Request $request)
     { 
         $file = "test/test";
-       
+        $currentUser = Auth::user();
+        $id = auth()->user()->id;
+        
+        $currentuser = User::find($id);
+
         
             //store file into document folder
-        
-        
-      
         $input = $request->all();
-       
+        
         $path = $request->file('file');
         $name = time() . $path->getClientOriginalName();
         $file_path  = 'api/doc';
@@ -41,10 +44,14 @@ class CourrierController extends Controller
         $extension = end($tmp);
         $courrier  = new Courrier([
             'title' => $request->get('title'), //$request->get('title')
-            'content' => $request->get('title'), //$request->get('content')
+            'content' => $request->get('content'), //$request->get('content')
             'priority' => $request->get('priority'), //$request->get('priority')
-            'file' => $path
+            'file' => $path, 
+            'user' => $id,
         ]);
+        
+        
+        
         
         if($extension=="docx"){
         $domPdfPath = base_path('vendor/dompdf/dompdf');
@@ -59,6 +66,12 @@ class CourrierController extends Controller
         $PDFWriter->save(public_path(''.'api/doc'.'\\'.$name.".pdf")); 
         $courrier->file = $name.".pdf";
         $courrier->save();
+        $arrayIdUser= explode(",",$request->get('users'));
+        foreach ($arrayIdUser as $key => $userid) {
+            $user = User::find($userid);
+            $user->courriers()->attach($courrier->id);
+        }
+        $currentuser->courriers()->attach($courrier->id);
             
         return 'File has been successfully converted';
         }
@@ -72,18 +85,37 @@ class CourrierController extends Controller
             
             $courrier->file = $pdfName;
             $courrier->save();
+            $arrayIdUser= explode(",",$request->get('users'));
+            foreach ($arrayIdUser as $key => $userid) {
+                $user = User::find($userid);
+                $user->courriers()->attach($courrier->id);
+            }
+            $currentuser->courriers()->attach($courrier->id);
             
            return  $pdf->Output('api/doc'.'\\'.$pdfName,"F");
            
         }
+        
         $courrier->file = public_path(''.'api/doc'.'\\'.$name.'.pdf');
         $courrier->save();
-        
+        $arrayIdUser= explode(",",$request->get('users'));
+        foreach ($arrayIdUser as $key => $userid) {
+            $user = User::find($userid);
+            $user->courriers()->attach($courrier->id);
+        }
+        $currentuser->courriers()->attach($courrier->id);
+            
         return PDF::loadFile(public_path(''.'api/doc'.'\\'.$name))
             ->setPaper('a4', 'landscape')
             ->setWarnings(false)
             ->save(public_path(''.'api/doc'.'\\'.$name.'.pdf'))
             ->stream();
+    }
+    public function getCourrierByuser($id){
+        $currentUser = Auth::user();
+        $id = auth()->user()->id;
+        $courriers = User::where('id', $id)->first()->courriers;
+        return $courriers;
     }
 
     public function getdoc(string $name){

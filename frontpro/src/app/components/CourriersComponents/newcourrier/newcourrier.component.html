@@ -1,0 +1,45 @@
+<div class="col-sm-8 col-sm-offset-2">
+    <form method="POST" enctype="multipart/form-data" [formGroup]="CourrierForm" (ngSubmit)="onSubmitForm()">
+        <p>{{CourrierForm.value|json}}</p>
+    
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" class="form-control" formControlName="title"> 
+        </div>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <input type="text" id="content" class="form-control" formControlName="content"> 
+        </div>
+        <div class="form-group">
+        <label for="priority">Priority</label>
+        <select formControlName="priority" class="form-control">
+            <option *ngFor="let priority of Priorities" [ngValue]="priority">
+              {{ priority }}
+            </option>
+          </select>
+        </div>
+        <ng-container *ngIf="users | async as result" [ngSwitch]="result.dataState">
+            <ng-container *ngSwitchCase="DataStateEnum.LOADING">
+                Loaaaading ...
+            </ng-container>
+            <ng-container *ngSwitchCase="DataStateEnum.LOADED">
+            <div class="form-group">
+            <select formControlName="users" class="form-control" multiple>
+              
+              
+              <option *ngFor="let user of result.data" [ngValue]="user.id">{{user.name}}</option>
+              
+            </select>
+            </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="DataStateEnum.ERROR">
+            ERROR 
+            </ng-container>
+            </ng-container>
+        <div class="form-group">
+            <label for="file">filecourriername</label>
+            <input type="file" class="form-control" (change)="onFileChange($event)"> 
+        </div>
+        <button type="submit" class="btn btn-primary">Soumettre</button>
+    </form>
+</div>

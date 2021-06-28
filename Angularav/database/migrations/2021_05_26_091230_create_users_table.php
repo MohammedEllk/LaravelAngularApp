@@ -14,12 +14,18 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->unsignedBigInteger('entity_id')->nullable();
+            $table->foreign('entity_id')
+                ->references('id')
+                ->on('entities')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -1,36 +1,39 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
-    
-    <mat-toolbar>SIFT LOOK</mat-toolbar>
-    
-    <mat-nav-list>
-      <li routerLinkActive="active"><a mat-list-item routerLink="newcourrier">Ajouter un courrier</a></li>
-      <a mat-list-item href="#">Diffuser la diffusion </a>
-      <li routerLinkActive="active"><a mat-list-item routerLink="courriers">Les courriers</a></li>
-      <li routerLinkActive="active"><a mat-list-item routerLink="sign">Signer les courriers</a></li>
-    </mat-nav-list>
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <div id="sidebar">
+      <header>
+        <mat-toolbar><a href="#">A-D-O </a><img src="assets/logo1.png"></mat-toolbar>
+      </header>
+      <mat-nav-list>
+        <ul class="nav">
+          <li routerLinkActive="active"><a mat-list-item routerLink="newcourrier" *ngIf="isSignedIn">Ajouter un courrier</a></li>
+          <li routerLinkActive="active"><a mat-list-item routerLink="newentity" *ngIf="isSignedIn">Ajouter une entity</a></li>
+          <li routerLinkActive="active"><a mat-list-item href="#" *ngIf="isSignedIn">Diffuser la diffusion </a></li>
+          <li routerLinkActive="active"><a mat-list-item routerLink="courriers" *ngIf="isSignedIn">Les courriers</a></li>
+          <li routerLinkActive="active"><a mat-list-item routerLink="sign"*ngIf="isSignedIn">Signer les courriers</a></li>
+          <li routerLinkActive="active"><a mat-list-item routerLink="/profile" *ngIf="isSignedIn">User Profile</a></li>
+          <li routerLinkActive="active"><a mat-list-item *ngIf="!isSignedIn" routerLink="/login">Log in</a></li>
+          <li routerLinkActive="active"><a mat-list-item routerLink="/register"*ngIf="!isSignedIn">Register</a></li>
+          <li routerLinkActive="active"><a mat-list-item (click)="signOut()" *ngIf="isSignedIn">Log out</a></li>
+        </ul>
+      </mat-nav-list>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
+    <mat-toolbar color="">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon"></mat-icon>
+        <mat-icon aria-label="Side nav toggle icon">list</mat-icon>
       </button>
       <span>Accueil</span>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Rechercher un courrier" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher un courrier</button>
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Rechercher un courrier</button>
       </form>
     </mat-toolbar>
     <ng-content>
-    
+
     </ng-content>
     <!-- Add Content Here -->
   </mat-sidenav-content>
