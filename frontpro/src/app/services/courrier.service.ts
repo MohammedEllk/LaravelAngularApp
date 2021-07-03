@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {courrier} from '../../models/courrier'
+import {courrier} from '../models/courrier'
 import {Observable, Subject} from 'rxjs';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { map } from 'jquery';
@@ -9,7 +9,6 @@ import { map } from 'jquery';
 @Injectable({
   providedIn: 'root'
 })
-
 export class CourrierService {
 
   
@@ -34,19 +33,6 @@ export class CourrierService {
       headers: new HttpHeaders(headerDict), 
     };
     return this.httpClient.get<courrier[]>("http://127.0.0.1:8000/api/Courriers",requestOptions);
-  }
-  getByUserCourriersFromServer(UserProfile:any):Observable<courrier[]> {
-    const headerDict = {
-      'Access-Control-Allow-Origin' : '*',
-      'Access-Control-Allow-Methods' : '*',
-      'Access-Control-Allow-Headers': '*',
-      'Access-Control-Allow-Credentials' : 'true',
-    }
-    console.log(headerDict);
-    const requestOptions = {                                                                                                                                                                                 
-      headers: new HttpHeaders(headerDict), 
-    };
-    return this.httpClient.get<courrier[]>("http://127.0.0.1:8000/api/Courriers/Users/"+UserProfile.id,requestOptions);
   }
 
 
